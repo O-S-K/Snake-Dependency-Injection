@@ -30,10 +30,6 @@ public class GameController : MonoBehaviour, IGameController
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartGame();
-        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
@@ -52,8 +48,9 @@ public class GameController : MonoBehaviour, IGameController
     }
 
     public void EndGame()
-    {
+    {   
         currentState = GameState.EndGame;
+        DIContainer.Resolve<UIManager>().Show<ResultDialog>();
         Debug.Log("Game ended!");
     }
 

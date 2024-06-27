@@ -12,7 +12,7 @@ public class DIContainer : MonoBehaviour
         bindings[typeof(TInterface)] = () => new TImplementation();
     }
 
-    public static void BindAndProvide<TInterface>(Func<object> provider)
+    public static void Bind<TInterface>(Func<object> provider)
     {
         bindings[typeof(TInterface)] = provider;
     }

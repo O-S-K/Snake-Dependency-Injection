@@ -17,6 +17,7 @@ MonoBehaviour:
   gridPrefab: {fileID: 7267958420495668628, guid: 6aca1011eae982049b2881252c55208d, type: 3}
   foodPrefab: {fileID: 6908649284088817221, guid: e8a98aa3611ec9747bf6372cafb7dd23, type: 3}
   obstaclePrefab: {fileID: 8576397042681272967, guid: f7c204183f07e9c408453263feda91e3, type: 3}
-  gridSize: {x: 18, y: 10}
-  moveInterval: 0.1
+  gridSize: {x: 16, y: 8}
   moveStep: 1
+  moveInterval: 0.15
+  levelUps: 030000000500000007000000090000000a000000

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface ISnake
 {
     void Init();
@@ -5,4 +7,5 @@ public interface ISnake
     void CheckMove();
     void Grow();
     void CheckCollision();
+    Vector2[] GetPosition();
 }

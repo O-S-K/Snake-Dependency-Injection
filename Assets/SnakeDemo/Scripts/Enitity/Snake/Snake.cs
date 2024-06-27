@@ -9,6 +9,7 @@ public class Snake : MonoBehaviour, ISnake
 
     private float moveTimer;
     public GameObject tailPrefab; // Prefab của đoạn đuôi mới
+    private int currentLevel = 0;
 
     [Inject] private IDataSO dataSo;
     [Inject] private IGameController gameController;
@@ -57,7 +58,7 @@ public class Snake : MonoBehaviour, ISnake
     private void MoveHead(Vector2 newPosition)
     {
         tail[0].position = newPosition;
-        moveTimer = dataSo.MoveInterval; // Reset moveTimer sau mỗi lần di chuyển
+        moveTimer = dataSo.MoveInterval; 
     }
 
     private void MoveTails()
@@ -113,6 +114,18 @@ public class Snake : MonoBehaviour, ISnake
                 Grow();
                 grid.GenerateFood();
                 Destroy(other.gameObject);
+                
+                var score = DIContainer.Resolve<GameData>();
+                score.AddScore(1);
+                var ui = DIContainer.Resolve<UIManager>().Get<IngameDialog>();
+                ui.UpdateScore(score.Score);
+                
+                if(score.Score > 0 && score.Score % dataSo.LevelUps[currentLevel] == 0)
+                {
+                    if(currentLevel < 5)
+                        currentLevel++;
+                    grid.GenerateObstacle();
+                }
                 break;
             }
             case "Obstacle":
@@ -126,7 +139,6 @@ public class Snake : MonoBehaviour, ISnake
 
     public void Grow()
     {
-        // Tạo đoạn đuôi mới ở vị trí của đoạn đuôi cuối cùng
         var newTail = Instantiate(tailPrefab, tail[^1].position, Quaternion.identity);
         tail.Add(newTail.transform);
     }
@@ -136,5 +148,15 @@ public class Snake : MonoBehaviour, ISnake
         // Check collision with walls or self
         // Check collision with food
         // If collision with food, call Grow() and grid.GenerateFood()
+    }
+
+    public Vector2[] GetPosition()
+    {
+        Vector2[] positions = new Vector2[tail.Count];
+        for (int i = 0; i < tail.Count; i++)
+        {
+            positions[i] = tail[i].position;
+        }
+        return positions;
     }
 }
