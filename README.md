@@ -16,8 +16,9 @@ The `DIContainer` class serves as a simple Dependency Injection container in thi
 
 #### Methods
 
-- **Bind<TInterface, TImplementation>()**: Binds an interface `TInterface` to a concrete implementation `TImplementation`.
-- **ProvideInstance<TInterface>(instance)**: Binds an interface `TInterface` to a provided instance.
+- **Bind<TInterface, TImplementation>()**: This is the method to use when you want DIContainer to know how to create an object when needed.
+- **ProvideInstance<TInterface>(instance)**: This is the method to use when you want to provide a concrete instance of TInterface without a concrete implementation class.
+- **Resolve**: This is the method to use when you need to get an instance of the TInterface linked in the DIContainer.
 - **Inject(target)**: Injects dependencies into an object `target` by setting its fields annotated with `[Inject]`.
 
 ### Using DI in the Snake Game
