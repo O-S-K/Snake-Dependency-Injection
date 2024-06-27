@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MenuDialog : Dialog
 {
-    //[Inject] private UIManager _uiManager;
     [SerializeField] private Button _playButton;
 
     private void Awake()

@@ -11,6 +11,7 @@ public class Snake : MonoBehaviour, ISnake
     public GameObject tailPrefab; // Prefab của đoạn đuôi mới
     private int currentLevel = 0;
 
+    [Inject] private Camera mainCamera;
     [Inject] private IDataSO dataSo;
     [Inject] private IGameController gameController;
     [Inject] private IGrid grid;
@@ -115,12 +116,12 @@ public class Snake : MonoBehaviour, ISnake
                 grid.GenerateFood();
                 Destroy(other.gameObject);
                 
-                var score = DIContainer.Resolve<GameData>();
-                score.AddScore(1);
-                var ui = DIContainer.Resolve<UIManager>().Get<IngameDialog>();
-                ui.UpdateScore(score.Score);
+                GameData.AddScore(1);
                 
-                if(score.Score > 0 && score.Score % dataSo.LevelUps[currentLevel] == 0)
+                var ui = DIContainer.Resolve<UIManager>().Get<IngameDialog>();
+                ui.UpdateScore(GameData.Score);
+                
+                if(GameData.Score > 0 && GameData.Score % dataSo.LevelUps[currentLevel] == 0)
                 {
                     if(currentLevel < 5)
                         currentLevel++;

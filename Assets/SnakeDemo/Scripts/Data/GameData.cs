@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameData : MonoBehaviour
+public class GameData 
 { 
-    public int Score { get; private set; }
+    public static int Score { get; private set; }
  
 
-    public void AddScore(int score)
+    public static void AddScore(int score)
     {
         Score += score;
     }
 
-    public void ResetScore()
+    public static void ResetScore()
     {
         Score = 0;
     }

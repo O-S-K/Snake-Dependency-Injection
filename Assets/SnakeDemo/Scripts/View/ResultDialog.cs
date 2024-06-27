@@ -25,7 +25,7 @@ public class ResultDialog : Dialog
 
     public override void Show()
     {
-        UpdateScore(DIContainer.Resolve<GameData>().Score);
+        UpdateScore(GameData.Score);
         base.Show();
     } 
 }
