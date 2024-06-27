@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85aa4cb872598974cb972ffb6588eee0, type: 3}
+  m_Name: EnitiesDataSO
+  m_EditorClassIdentifier: 
+  gameController: {fileID: 2012432250344910808, guid: 4f5814d9e8851d5488184ad563f7e878, type: 3}
+  snakePrefab: {fileID: 5851628823887814745, guid: e97fa065052d59f4e81021918905d7ab, type: 3}
+  gridPrefab: {fileID: 7267958420495668628, guid: 6aca1011eae982049b2881252c55208d, type: 3}
+  foodPrefab: {fileID: 6908649284088817221, guid: e8a98aa3611ec9747bf6372cafb7dd23, type: 3}
+  obstaclePrefab: {fileID: 8576397042681272967, guid: f7c204183f07e9c408453263feda91e3, type: 3}
+  gridSize: {x: 18, y: 10}
+  moveInterval: 0.1
+  moveStep: 1
