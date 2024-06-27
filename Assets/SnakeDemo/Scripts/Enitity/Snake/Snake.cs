@@ -11,6 +11,7 @@ public class Snake : MonoBehaviour, ISnake
     public GameObject tailPrefab; // Prefab của đoạn đuôi mới
     private int currentLevel = 0;
 
+    // Injected
     [Inject] private Camera mainCamera;
     [Inject] private IDataSO dataSo;
     [Inject] private IGameController gameController;

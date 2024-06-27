@@ -7,16 +7,34 @@ public class DIContainer : MonoBehaviour
 {
     private static Dictionary<Type, Func<object>> bindings = new Dictionary<Type, Func<object>>();
 
+    
+    /// <summary>
+    /// Bind an interface to an implementation
+    /// </summary>
+    /// <typeparam name="TInterface"></typeparam>
+    /// <typeparam name="TImplementation"></typeparam>
     public static void Bind<TInterface, TImplementation>() where TImplementation : TInterface, new()
     {
         bindings[typeof(TInterface)] = () => new TImplementation();
     }
 
+    
+    /// <summary>
+    /// Bind an interface to a provider
+    /// </summary>
+    /// <param name="provider"></param>
+    /// <typeparam name="TInterface"></typeparam>
     public static void Bind<TInterface>(Func<object> provider)
     {
         bindings[typeof(TInterface)] = provider;
     }
 
+    /// <summary>
+    /// Resolve an interface to an implementation
+    /// </summary>
+    /// <typeparam name="TInterface"></typeparam>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public static TInterface Resolve<TInterface>()
     {
         if (bindings.ContainsKey(typeof(TInterface)))
@@ -37,6 +55,11 @@ public class DIContainer : MonoBehaviour
         }
     }
 
+    
+    /// <summary>
+    /// Inject dependencies into an object
+    /// </summary>
+    /// <param name="target"></param>
     public static void Inject(object target)
     {
         var targetType = target.GetType();
