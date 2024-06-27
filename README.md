@@ -1,42 +1,57 @@
- Dependency Injection in Unity Snake Game
-Overview
+# Dependency Injection in Unity Snake Game
+
+## Overview
+
 This document provides an overview of how Dependency Injection (DI) is implemented in the Unity Snake Game project. Dependency Injection is used to manage dependencies between different game components, allowing for better modularity, testability, and flexibility in the codebase.
 
-What is Dependency Injection?
+## What is Dependency Injection?
+
 Dependency Injection is a design pattern widely used in software development to achieve Inversion of Control (IoC). In the context of this Unity project, DI helps decouple components and services by injecting dependencies rather than having components create their dependencies directly.
 
-Components of the Project
-DIContainer Class
-The DIContainer class serves as a simple Dependency Injection container in this project. It allows bindings between interfaces and their concrete implementations or instances.
+## Components of the Project
 
-Methods
-Bind<TInterface, TImplementation>(): Binds an interface TInterface to a concrete implementation TImplementation.
-ProvideInstance<TInterface>(instance): Binds an interface TInterface to a provided instance.
-Inject(target): Injects dependencies into an object target by setting its fields annotated with [Inject].
-Using DI in the Snake Game
-1. Binding Dependencies
-Dependencies are bound to their interfaces and provided to the DIContainer. This happens typically during initialization, such as in the Awake() method of GameInstaller.
+### DIContainer Class
 
-Example:
-DIContainer.Bind<IDataSO>(() => dataSO);
-DIContainer.Bind<IGameController>(() => gameController);
-DIContainer.Bind<ISnake>(() => snake);
-DIContainer.Bind<IInput>(() => input);
-2. Injecting Dependencies
-Dependencies are injected into the relevant game components, such as the Snake class, using [Inject] annotations.
+The `DIContainer` class serves as a simple Dependency Injection container in this project. It allows bindings between interfaces and their concrete implementations or instances.
+
+#### Methods
+
+- **Bind<TInterface, TImplementation>()**: Binds an interface `TInterface` to a concrete implementation `TImplementation`.
+- **ProvideInstance<TInterface>(instance)**: Binds an interface `TInterface` to a provided instance.
+- **Inject(target)**: Injects dependencies into an object `target` by setting its fields annotated with `[Inject]`.
+
+### Using DI in the Snake Game
+Dependencies are bound to their interfaces and provided to the `DIContainer`. This happens typically during initialization, such as in the `Awake()` method of `GameInstaller`.
 
 Example:
-[Inject] private IDataSO dataSO;
-[Inject] private IGameController gameController;
-[Inject] private ISnake snake;
-[Inject] private IInput input;
-3. Using Injected Dependencies
-Once injected, these dependencies can be used throughout the codebase, promoting loosely coupled interactions between game components.
+```csharp
 
-Benefits of Dependency Injection
-Modularity: Components are more modular and easier to replace or upgrade.
-Testability: Dependencies can be mocked or replaced during testing.
-Flexibility: Changing dependencies is easier and less error-prone.
-Conclusion
-Dependency Injection plays a crucial role in managing the complexity and dependencies of the Unity Snake Game project. By decoupling components and managing dependencies externally, the project becomes more maintainable and extensible.
+Class GameInstaller
+
+// Instantiate objects in the scene
+   var dataSO = Resources.Load<DataSO>("Data/DataSO"); 
+   var gameControllerPrefab = dataSO.GameController;
+   var gridPrefab = dataSO.GridPrefab;
+   var snakePrefab = dataSO.SnakePrefab;
+
+// Bind dependencies to DIContainer
+   DIContainer.Bind<IDataSO>(() => dataSO);
+   DIContainer.Bind<IGameController>(() => gameController);
+   DIContainer.Bind<ISnake>(() => snake);
+   DIContainer.Bind<IGrid>(() => grid);
+
+
+ // Inject dependencies into instantiated objects
+    DIContainer.Inject(dataSO);
+    DIContainer.Inject(game);
+    DIContainer.Inject(snake);
+    DIContainer.Inject(grid);
+
+Class Snake
+ // Injected
+    [Inject] private IDataSO dataSo;
+    [Inject] private IGameController gameController;
+    [Inject] private IGrid grid;
+    [Inject] private IInput input;
+
 
