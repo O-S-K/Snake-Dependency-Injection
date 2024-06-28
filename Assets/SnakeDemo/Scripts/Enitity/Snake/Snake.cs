@@ -17,7 +17,7 @@ public class Snake : MonoBehaviour, ISnake
     [Inject] protected IGrid grid;
 
     protected ITail tail;
-    private IInput input;
+    protected IInput input;
 
     public virtual void Init(Color color)
     {
@@ -27,7 +27,6 @@ public class Snake : MonoBehaviour, ISnake
         var _tail = gameObject.AddComponent<TailComponent>();
         _tail.Init(dataSo.TailPrefab);
         tail = _tail;
-        tail.GetTail(0).position = new Vector2(-1, 0);
 
         nextDirection = Vector2.zero;
         moveTimer = 0;
@@ -70,7 +69,7 @@ public class Snake : MonoBehaviour, ISnake
         moveTimer = dataSo.MoveInterval;
     }
 
-    protected virtual bool CheckCollisionTail(Vector2 newPosition)
+    protected bool CheckCollisionTail(Vector2 newPosition)
     {
         for (int i = 1; i < tail.GetTailCount(); i++)
         {
@@ -84,7 +83,7 @@ public class Snake : MonoBehaviour, ISnake
         return false;
     }
 
-    public virtual void CollisionTail()
+    protected virtual void CollisionTail()
     {
     }
 
@@ -115,7 +114,6 @@ public class Snake : MonoBehaviour, ISnake
         if (other.tag == Tags.Food)
         {
             TriggerFood(other);
-           
         }
     }
 
@@ -130,8 +128,11 @@ public class Snake : MonoBehaviour, ISnake
     {
         nextDirection = Vector2.zero;
     }
-  
-    public void Grow() => tail.AddTail(Tags.Player1, color);
+
+    public virtual void Grow()
+    {
+         
+    }
     public Vector2[] GetPosition() => tail.GetPosition();
     public Color GetColor() => color;
 }
