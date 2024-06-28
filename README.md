@@ -1,4 +1,4 @@
-# Dependency Injection in Unity Snake Game
+# Dependency Injection
 
 ## Overview
 
