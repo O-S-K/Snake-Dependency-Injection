@@ -1,7 +1,12 @@
+
+
 public interface IGameController
 {
     void Init();
     void StartGame();
     void UpdateGame();
-    void EndGame();
+    void EndGame(GameController.EndGameType type);
+
+    bool IsInGame();
+    void AddScore(int type);
 }

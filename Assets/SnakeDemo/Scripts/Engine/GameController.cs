@@ -1,6 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
+
 
 public class GameController : MonoBehaviour, IGameController
 {
@@ -10,15 +14,30 @@ public class GameController : MonoBehaviour, IGameController
         InGame,
         EndGame
     }
-    public GameState currentState ;
 
-    [Inject] private ISnake snake;
+    public enum EndGameType
+    {
+        P1Win,
+        P2Win,
+        Draw
+    }
+
+
+    public GameState currentState;
+
+
     [Inject] private IGrid grid;
-    
+    [Inject] private DataSO dataSO;
+    [Inject] private P1Snake p1Snake;
+    [Inject] private P2Snake p2Snake;
+
+
     public void Init()
     {
         currentState = GameState.Start;
-        snake.Init();
+
+        p1Snake.Init(dataSO.SnakeColors[Random.Range(0, 2)]);
+        p2Snake.Init(dataSO.SnakeColors[Random.Range(2, 4)]);
         grid.Init();
     }
 
@@ -28,34 +47,77 @@ public class GameController : MonoBehaviour, IGameController
         Debug.Log("Game started!");
     }
 
+    public void AddScore(int type)
+    {
+        if (type == 0)
+        {
+            GameData.ScorePlayer++;
+        }
+        else
+        {
+            GameData.ScoreEnemy++;
+        }
+    }
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(0);
         }
-        
+
         UpdateGame();
+    }
+
+
+    public bool IsInGame()
+    {
+        return currentState == GameState.InGame;
     }
 
     public void UpdateGame()
     {
         if (IsInGame())
         {
-            snake.GetInput();
-            snake.CheckMove();
+            p1Snake.GetInput();
+            p1Snake.CheckMove();
+
+            p2Snake.GetInput();
+            p2Snake.CheckMove();
         }
     }
 
-    public void EndGame()
-    {   
-        currentState = GameState.EndGame;
-        DIContainer.Resolve<UIManager>().Show<ResultDialog>();
+    public void EndGame(EndGameType endGameType)
+    {
+        if (currentState == GameState.EndGame)
+            return;
+        
         Debug.Log("Game ended!");
+        currentState = GameState.EndGame;
+
+        switch (endGameType)
+        {
+            case EndGameType.P1Win:
+                Debug.Log("Player 1 Win!");
+                break;
+            case EndGameType.P2Win:
+                Debug.Log("Player 2 Win!");
+                break;
+            case EndGameType.Draw:
+                Debug.Log("Draw!");
+                break;
+        }
+
+        //  invoke result dialog
+        StartCoroutine(IEShowResultDialog(endGameType));
     }
 
-    public bool IsInGame()
+    private IEnumerator IEShowResultDialog(EndGameType endGameType)
     {
-        return currentState == GameState.InGame;
+        yield return new WaitForSeconds(1f);
+        DIContainer.Resolve<UIManager>()
+            .Show<ResultDialog>()
+            .UpdateResult(endGameType);
     }
 }

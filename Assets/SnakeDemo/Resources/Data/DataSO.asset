@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: DataSO
   m_EditorClassIdentifier: 
   gameController: {fileID: 2012432250344910808, guid: 4f5814d9e8851d5488184ad563f7e878, type: 3}
-  snakePrefab: {fileID: 5851628823887814745, guid: e97fa065052d59f4e81021918905d7ab, type: 3}
   gridPrefab: {fileID: 7267958420495668628, guid: 6aca1011eae982049b2881252c55208d, type: 3}
+  gridSize: {x: 16, y: 8}
+  snakePrefab: {fileID: 5851628823887814744, guid: e97fa065052d59f4e81021918905d7ab, type: 3}
+  tailPrefab: {fileID: 5851628823887814744, guid: 43580f342a4147f4082b1cc4eb0fe46b, type: 3}
+  snakeColors:
+  - {r: 0, g: 1, b: 0.9083636, a: 1}
+  - {r: 1, g: 0, b: 0.870769, a: 1}
+  - {r: 0, g: 1, b: 0.5644834, a: 1}
+  - {r: 1, g: 0.90825665, b: 0, a: 1}
+  moveStep: 1
+  moveInterval: 0.2
   foodPrefab: {fileID: 6908649284088817221, guid: e8a98aa3611ec9747bf6372cafb7dd23, type: 3}
   obstaclePrefab: {fileID: 8576397042681272967, guid: f7c204183f07e9c408453263feda91e3, type: 3}
-  gridSize: {x: 16, y: 8}
-  moveStep: 1
-  moveInterval: 0.125
   levelUps: 030000000500000007000000090000000a000000

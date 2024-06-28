@@ -74,4 +74,26 @@ public class DIContainer : MonoBehaviour
             }
         }
     }
+    
+    /// <summary>
+    ///  Inject dependencies into an array of objects
+    /// </summary>
+    /// <param name="target"></param>
+    public static void Injects(params object[] targets)
+    {
+        foreach (var target in targets)
+        {
+            var targetType = target.GetType();
+            var fields = targetType.GetFields(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+
+            foreach (var field in fields)
+            {
+                if (bindings.ContainsKey(field.FieldType))
+                {
+                    var value = bindings[field.FieldType]();
+                    field.SetValue(target, value);
+                }
+            }
+        }
+    }
 }

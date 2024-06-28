@@ -9,8 +9,9 @@ public class Grid : MonoBehaviour, IGrid
     private GameObject[,] gridCells;
     private Vector2Int gridSize;
 
-    [Inject] private IDataSO dataSO;
-    [Inject] private ISnake snake;
+    [Inject] private DataSO dataSO;
+    [Inject] private P1Snake p1Snake;
+    [Inject] private P1Snake eSnake;
 
     private Vector2 food;
     private Vector2 obstacle;
@@ -59,7 +60,8 @@ public class Grid : MonoBehaviour, IGrid
         foreach (Vector2Int position in randomPositions)
         {
             if (!IsFoodPosition(position) && !IsObstaclePosition(position) &&
-                !IsPositionSnake(snake.GetPosition(), position))
+                !IsPositionSnake(p1Snake.GetPosition(), position) &&
+                !IsPositionSnake(eSnake.GetPosition(), position))
             {
                 return GridToWorldPosition(position);
             }
@@ -75,7 +77,10 @@ public class Grid : MonoBehaviour, IGrid
 
         foreach (Vector2Int position in randomPositions)
         {
-            if (!IsFoodPosition(position) && !IsPositionSnake(snake.GetPosition(), position))
+            if (!IsFoodPosition(position) &&
+                !IsObstaclePosition(position) &&
+                !IsPositionSnake(p1Snake.GetPosition(), position) &&
+                !IsPositionSnake(eSnake.GetPosition(), position))
             {
                 return GridToWorldPosition(position);
             }
@@ -87,19 +92,19 @@ public class Grid : MonoBehaviour, IGrid
 
     private bool IsFoodPosition(Vector2Int position)
     {
-        return food == GridToWorldPosition(position);
+        return Vector2.Distance(food , GridToWorldPosition(position)) <= 0.01f;
     }
 
     private bool IsObstaclePosition(Vector2Int position)
     {
-        return obstacle == GridToWorldPosition(position);
+        return Vector2.Distance(obstacle , GridToWorldPosition(position)) <= 0.01f;
     }
 
     private bool IsPositionSnake(Vector2[] positions, Vector2Int position)
     {
         for (int i = 0; i < positions.Length; i++)
         {
-            if (positions[i] == GridToWorldPosition(position))
+            if (Vector2.Distance(positions[i] , GridToWorldPosition(position)) <= 0.01f)
             {
                 return true;
             }

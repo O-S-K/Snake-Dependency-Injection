@@ -6,19 +6,23 @@ public class UIManager : MonoBehaviour
 {
     public Dialog[] Dialogs;
 
-    public void Show<T>() where T : Dialog
+    public T Show<T>() where T : Dialog
     {
+        Dialog _dialog = null;
         foreach (var dialog in Dialogs)
         {
             if (dialog is T)
             {
-                dialog.Show();
+                _dialog = dialog;
             }
             else
             {
                 dialog.Hide();
             }
         }
+        
+        _dialog.Show();
+        return _dialog as T;
     }
     
     public T Get<T>() where T : Dialog

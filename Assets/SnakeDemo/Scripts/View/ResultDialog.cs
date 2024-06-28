@@ -13,19 +13,31 @@ public class ResultDialog : Dialog
         _playButton.onClick.AddListener(OnPlayButtonClicked);
     }
     
-    public void UpdateScore(int score)
-    {
-        _scoreText.text = "Score: " + score;
-    }
     
+    public override void Show()
+    {
+        base.Show();
+    }
+
+    public void UpdateResult(GameController.EndGameType type)
+    {
+        switch (type)
+        {
+            case GameController.EndGameType.P1Win:
+                _scoreText.text = "Player 1 Win!";
+                break;
+            case GameController.EndGameType.P2Win:
+                _scoreText.text = "Player 2 Win!";
+                break;
+            case GameController.EndGameType.Draw:
+                _scoreText.text = "Draw!";
+                break;
+        }
+    } 
+        
     private void OnPlayButtonClicked()
     {
         SceneManager.LoadScene(0);
     }
 
-    public override void Show()
-    {
-        UpdateScore(GameData.Score);
-        base.Show();
-    } 
 }
