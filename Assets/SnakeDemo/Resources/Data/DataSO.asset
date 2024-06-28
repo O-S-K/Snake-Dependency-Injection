@@ -24,6 +24,6 @@ MonoBehaviour:
   - {r: 1, g: 0.90825665, b: 0, a: 1}
   moveStep: 1
   moveInterval: 0.2
-  foodPrefab: {fileID: 6908649284088817221, guid: e8a98aa3611ec9747bf6372cafb7dd23, type: 3}
-  obstaclePrefab: {fileID: 8576397042681272967, guid: f7c204183f07e9c408453263feda91e3, type: 3}
+  enityGraphicsPrefab: {fileID: 6908649284088817221, guid: e8a98aa3611ec9747bf6372cafb7dd23, type: 3}
+  obstaclePrefab: {fileID: 1072449200836213635, guid: f7c204183f07e9c408453263feda91e3, type: 3}
   levelUps: 030000000500000007000000090000000a000000

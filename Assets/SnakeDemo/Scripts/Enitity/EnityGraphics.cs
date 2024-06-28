@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-
-public class Obstacle : MonoBehaviour, IObstacle
+ 
+public class EnityGraphics : MonoBehaviour 
 {
     public void Init(Color colorGraphic, string tag)
     {

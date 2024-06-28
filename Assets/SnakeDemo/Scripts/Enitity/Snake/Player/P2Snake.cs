@@ -29,7 +29,7 @@ public class P2Snake : MonoBehaviour, ISnake
         var _tail = gameObject.AddComponent<TailComponent>();
         _tail.Init(dataSo.TailPrefab);
         tail = _tail;
-        tail.GetTail(0).position = new Vector2(-1, 0);
+        tail.GetTail(0).position = new Vector2(1, 0);
 
         var _input = gameObject.AddComponent<EnemyInput>();
         input = _input;

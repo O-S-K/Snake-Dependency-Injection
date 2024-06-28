@@ -18,8 +18,8 @@ public class DataSO : ScriptableObject
     [SerializeField] private float moveStep;
     [SerializeField] private float moveInterval;
     
-    [SerializeField] private Food foodPrefab;
-    [SerializeField] private Obstacle obstaclePrefab;
+    [FormerlySerializedAs("objectSpawnPrefab")] [FormerlySerializedAs("foodPrefab")] [SerializeField] private EnityGraphics enityGraphicsPrefab;
+    [SerializeField] private GameObject obstaclePrefab;
 
     [SerializeField] private int[] levelUps;
 
@@ -28,8 +28,8 @@ public class DataSO : ScriptableObject
     public GameObject SnakePrefab => snakePrefab;
     public GameObject TailPrefab => tailPrefab;
     public Grid GridPrefab => gridPrefab;
-    public Food FoodPrefab => foodPrefab;
-    public Obstacle ObstaclePrefab => obstaclePrefab;
+    public EnityGraphics EnityGraphicsPrefab => enityGraphicsPrefab;
+    public GameObject ObstaclePrefab => obstaclePrefab;
     public Vector2Int GridSize => gridSize;
 
     

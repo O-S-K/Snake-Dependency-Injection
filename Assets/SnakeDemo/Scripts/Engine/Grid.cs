@@ -42,7 +42,7 @@ public class Grid : MonoBehaviour, IGrid
 
     public void GenerateFood()
     {
-        var f = Instantiate(dataSO.FoodPrefab, RandomPositionFood(), Quaternion.identity, transform);
+        var f = Instantiate(dataSO.EnityGraphicsPrefab, RandomPositionFood(), Quaternion.identity, transform);
         food = f.transform.position.normalized;
     }
 
