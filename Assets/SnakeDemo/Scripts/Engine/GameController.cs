@@ -84,31 +84,33 @@ public class GameController : MonoBehaviour, IGameController
     {
         if (IsInGame())
         {
-            timeUp += Time.deltaTime;
-
-            if (currentLevel >= dataSO.LevelUps.Length)
-                return;
-
-            if (Mathf.RoundToInt(timeUp) >= dataSO.LevelUps[currentLevel] && !isTimeUp)
-            {
-                currentLevel++;
-                isTimeUp = true;
-                
-                if(Random.value < currentLevel / 10f)
-                    grid.GenerateFood();
-                grid.GenerateObstacle();
-
-            }
-            else
-            {
-                isTimeUp = false;
-            }
-
+            if (currentLevel < dataSO.LevelUps.Length)
+                UpdateLevel();
+           
             p1Snake.GetInput();
             p1Snake.CheckMove();
 
             p2Snake.GetInput();
             p2Snake.CheckMove();
+        }
+    }
+
+    private void UpdateLevel()
+    {
+        if (Mathf.RoundToInt(timeUp) >= dataSO.LevelUps[currentLevel] && !isTimeUp)
+        {
+            currentLevel++;
+            isTimeUp = true;
+                
+            if(Random.value < currentLevel / 10f)
+                grid.GenerateFood();
+            grid.GenerateObstacle();
+
+        }
+        else
+        {
+            timeUp += Time.deltaTime;
+            isTimeUp = false;
         }
     }
 
