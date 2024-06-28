@@ -48,6 +48,9 @@ public class TailComponent : MonoBehaviour, ITail
         var newTail = Instantiate(tailPrefab, tail[^1].position, Quaternion.identity);
         newTail.tag = tag;
         newTail.GetComponent<SpriteRenderer>().color = color;
+        float scaleFactor = Mathf.Pow(0.98765f, tail.Count);
+        newTail.transform.localScale = new Vector3(1 * scaleFactor, 1 * scaleFactor, 1);
+
         tail.Add(newTail.transform);
     }
 }

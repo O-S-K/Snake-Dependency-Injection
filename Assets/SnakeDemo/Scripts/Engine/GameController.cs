@@ -31,6 +31,10 @@ public class GameController : MonoBehaviour, IGameController
     [Inject] private P1Snake p1Snake;
     [Inject] private P2Snake p2Snake;
 
+    protected int currentLevel = 0;
+    protected float timeUp;
+    protected bool isTimeUp;
+
 
     public void Init()
     {
@@ -80,6 +84,26 @@ public class GameController : MonoBehaviour, IGameController
     {
         if (IsInGame())
         {
+            timeUp += Time.deltaTime;
+
+            if (currentLevel >= dataSO.LevelUps.Length)
+                return;
+
+            if (Mathf.RoundToInt(timeUp) >= dataSO.LevelUps[currentLevel] && !isTimeUp)
+            {
+                currentLevel++;
+                isTimeUp = true;
+                
+                if(Random.value < currentLevel / 10f)
+                    grid.GenerateFood();
+                grid.GenerateObstacle();
+
+            }
+            else
+            {
+                isTimeUp = false;
+            }
+
             p1Snake.GetInput();
             p1Snake.CheckMove();
 
@@ -92,7 +116,7 @@ public class GameController : MonoBehaviour, IGameController
     {
         if (currentState == GameState.EndGame)
             return;
-        
+
         Debug.Log("Game ended!");
         currentState = GameState.EndGame;
 

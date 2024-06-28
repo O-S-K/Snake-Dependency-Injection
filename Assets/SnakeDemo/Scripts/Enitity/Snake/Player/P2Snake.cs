@@ -6,6 +6,7 @@ public class P2Snake : Snake
     {
         base.Init(color);
         tag = Tags.Player2;
+        name = "Player 2";
         
         tail.GetTail(0).position = new Vector2(1, 0);
         var _input = gameObject.AddComponent<EnemyInput>();
@@ -25,13 +26,6 @@ public class P2Snake : Snake
 
         var ui = DIContainer.Resolve<UIManager>().Get<IngameDialog>();
         ui.UpdateScore(2, GameData.ScoreEnemy);
-
-        if (GameData.ScoreEnemy > 0 && GameData.ScoreEnemy % dataSo.LevelUps[currentLevel] == 0)
-        {
-            if (currentLevel < 4)
-                currentLevel++;
-            grid.GenerateObstacle();
-        }
     }  
 
     protected override void TriggerObstacle(Collision2D collision)

@@ -5,8 +5,8 @@ public class P1Snake : Snake
     public override void Init(Color color)
     {
         base.Init(color);
-        name = "Player 1";
         tag = Tags.Player1; 
+        name = "Player 1";
 
         tail.GetTail(0).position = new Vector2(-1, 0);
         var _input = gameObject.AddComponent<PlayerInput>();
@@ -26,13 +26,6 @@ public class P1Snake : Snake
 
         var ui = DIContainer.Resolve<UIManager>().Get<IngameDialog>();
         ui.UpdateScore(1, GameData.ScorePlayer);
-
-        if (GameData.ScorePlayer > 0 && GameData.ScorePlayer % dataSo.LevelUps[currentLevel] == 0)
-        {
-            if (currentLevel < 4)
-                currentLevel++;
-            grid.GenerateObstacle();
-        }
     }
     
     protected override void TriggerObstacle(Collision2D collision)

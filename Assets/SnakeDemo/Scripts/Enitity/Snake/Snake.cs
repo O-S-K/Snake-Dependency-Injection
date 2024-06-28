@@ -8,7 +8,6 @@ public class Snake : MonoBehaviour, ISnake
     protected Vector2 nextDirection;
 
     protected float moveTimer;
-    protected int currentLevel = 0;
     protected Color color;
 
     // Injected
