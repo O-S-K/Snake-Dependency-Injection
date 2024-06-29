@@ -20,7 +20,7 @@ public class P1Snake : Snake
    
     protected override void CollisionTail()
     {
-        TriggerObstacle(GameController.EndGameType.P2Win);
+        Interactive(GameController.EndGameType.P2Win);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -31,7 +31,7 @@ public class P1Snake : Snake
         }
         else if(other.tag == Tags.Player2)
         {
-            TriggerObstacle(GameController.EndGameType.P2Win);
+            Interactive(GameController.EndGameType.P2Win);
         } 
     }
 
@@ -45,9 +45,9 @@ public class P1Snake : Snake
         ui.UpdateScore(1, GameData.ScorePlayer);
     }
     
-    protected override void TriggerObstacle(GameController.EndGameType endGameType)
+    protected override void Interactive(GameController.EndGameType endGameType)
     {
-        base.TriggerObstacle(endGameType); 
+        base.Interactive(endGameType); 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -56,12 +56,12 @@ public class P1Snake : Snake
             return;
         if (collision.gameObject.CompareTag(Tags.Obstacle)) 
         { 
-            TriggerObstacle(GameController.EndGameType.P2Win);
+            Interactive(GameController.EndGameType.P2Win);
         } 
         // trigger tail of player 2
-        else if(collision.collider.CompareTag(Tags.Player2))
+        else if(collision.collider.CompareTag(Tags.Player2) && collision.collider.isTrigger)
         {
-            TriggerObstacle(GameController.EndGameType.P2Win);
+            Interactive(GameController.EndGameType.P2Win);
         } 
         else if (collision.gameObject.TryGetComponent(out P2Snake p2Snake))
         {
@@ -72,7 +72,7 @@ public class P1Snake : Snake
             }
             else if (tail.GetTailCount() < p2Snake.GetPosition().Length)
             {
-                TriggerObstacle(GameController.EndGameType.P2Win);
+                Interactive(GameController.EndGameType.P2Win);
             }
             else
             {

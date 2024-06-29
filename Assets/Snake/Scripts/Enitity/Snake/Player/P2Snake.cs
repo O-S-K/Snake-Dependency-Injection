@@ -19,7 +19,7 @@ public class P2Snake : Snake
      
     protected override void CollisionTail()
     {
-        TriggerObstacle(GameController.EndGameType.P1Win);
+        Interactive(GameController.EndGameType.P1Win);
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,9 +46,9 @@ public class P2Snake : Snake
         ui.UpdateScore(2, GameData.ScoreEnemy);
     }  
 
-    protected override void TriggerObstacle(GameController.EndGameType endGameType)
+    protected override void Interactive(GameController.EndGameType endGameType)
     {
-        base.TriggerObstacle(endGameType); 
+        base.Interactive(endGameType); 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -58,29 +58,26 @@ public class P2Snake : Snake
 
         if (collision.gameObject.CompareTag(Tags.Obstacle)) 
         { 
-            TriggerObstacle(GameController.EndGameType.P1Win);
+            Interactive(GameController.EndGameType.P1Win);
         }
         // trigger tail of player 1
-        else if(collision.collider.CompareTag(Tags.Player1))
+        else if(collision.collider.CompareTag(Tags.Player1) && collision.collider.isTrigger)
         {
-            TriggerObstacle(GameController.EndGameType.P1Win);
+            Interactive(GameController.EndGameType.P1Win);
         } 
         else if (collision.gameObject.TryGetComponent(out P1Snake p1Snake))
-        {
+        { 
             if (tail.GetTailCount() > p1Snake.GetPosition().Length)
             {
-                gameController.EndGame(GameController.EndGameType.P2Win);
-                nextDirection = Vector2.zero;
+                Interactive(GameController.EndGameType.P2Win);
             }
             else if (tail.GetTailCount() < p1Snake.GetPosition().Length)
             {
-                gameController.EndGame(GameController.EndGameType.P1Win);
-                nextDirection = Vector2.zero;
+                Interactive(GameController.EndGameType.P1Win);
             }
             else
             {
-                gameController.EndGame(GameController.EndGameType.Draw);
-                nextDirection = Vector2.zero;
+                Interactive(GameController.EndGameType.Draw);
             }
         }
     }

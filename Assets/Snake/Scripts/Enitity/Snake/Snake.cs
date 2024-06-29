@@ -124,22 +124,33 @@ public class Snake : MonoBehaviour, ISnake
         grid.GenerateFood();
     }
     
-    protected virtual void TriggerObstacle(GameController.EndGameType endGameType)
+    protected virtual void Interactive(GameController.EndGameType endGameType)
     {
+        StartCoroutine(BlinkSpriteRenderHead());
         audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/Hit"), 2);
         Camera.main.transform.DOShakePosition(0.35f, 0.5f, 10, 90, false);
-        transform.DOShakeScale(0.1f, 0.1f, 10, 90, false);
+        transform.DOShakeScale(0.25f, 0.5f, 10, 90, false);
         EndGame(endGameType);
     }
-    
+     
     protected void EndGame(GameController.EndGameType endGameType)
     {
         nextDirection = Vector2.zero;
         gameController.EndGame(endGameType);
-
-        for (int i = 0; i < tail.GetTailCount(); i++)
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+    }
+    
+    protected IEnumerator BlinkSpriteRenderHead()
+    {
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        var color = spriteRenderer.color;
+        
+        for (int i = 0; i < 10; i++)
         {
-            tail.GetTail(i).transform.parent = transform;
+            spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.05f);
+            spriteRenderer.color = color;
+            yield return new WaitForSeconds(0.05f);
         }
     }
 

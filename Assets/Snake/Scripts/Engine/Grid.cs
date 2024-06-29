@@ -51,13 +51,13 @@ public class Grid : MonoBehaviour, IGrid
 
     private IEnumerator AnimateCells(System.Action callback = null)
     {
-        float delay = 0.0025f; 
+        float delay = 0.001f; 
         for (int x = 0; x < gridSize.x; x++)
         {
             for (int y = 0; y < gridSize.y; y++)
             {
                 AnimateCell(gridCells[x, y]);
-                yield return new WaitForSeconds(delay + Random.Range(-0.0025f, 0.0025f));
+                yield return new WaitForSeconds(delay);
             }
         }
         callback?.Invoke();
@@ -65,7 +65,7 @@ public class Grid : MonoBehaviour, IGrid
 
     private void AnimateCell(GameObject cell)
     {
-        cell.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.OutBounce);
+        cell.transform.DOScale(Vector3.one, 0.1f).SetEase(Ease.Linear);
     }
 
     public void GenerateFood()
