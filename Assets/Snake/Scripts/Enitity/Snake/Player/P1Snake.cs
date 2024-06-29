@@ -20,7 +20,7 @@ public class P1Snake : Snake
    
     protected override void CollisionTail()
     {
-        gameController.EndGame(GameController.EndGameType.P2Win);
+        TriggerObstacle(GameController.EndGameType.P2Win);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

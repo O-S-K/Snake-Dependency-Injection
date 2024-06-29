@@ -89,6 +89,7 @@ public class Snake : MonoBehaviour, ISnake
 
     protected virtual void CollisionTail()
     {
+        
     }
 
     protected virtual Vector2 CheckOutOfBounds(Vector2 position)

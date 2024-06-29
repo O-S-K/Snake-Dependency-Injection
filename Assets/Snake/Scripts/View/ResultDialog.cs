@@ -13,7 +13,7 @@ public class ResultDialog : Dialog
     private void Awake()
     {
         _playButton.onClick.AddListener(OnPlayButtonClicked);
-        _backMenuButton.onClick.AddListener(OnPlayButtonClicked);
+        _backMenuButton.onClick.AddListener(ObBackMenu);
     }
     
     
