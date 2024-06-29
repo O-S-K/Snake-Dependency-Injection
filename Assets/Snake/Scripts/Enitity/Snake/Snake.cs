@@ -18,16 +18,17 @@ public class Snake : MonoBehaviour, ISnake
 
     protected ITail tail;
     protected IInput input;
-    
     protected AudioSource audioSource; 
+    
+    
     public virtual void Init(Color color)
     {
         this.color = color;
         GetComponent<SpriteRenderer>().color = color;
         
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.GetOrAdd<AudioSource>();
 
-        var _tail = gameObject.AddComponent<TailComponent>();
+        var _tail = gameObject.GetOrAdd<TailComponent>();
         _tail.Init(dataSo.TailPrefab);
         tail = _tail;
 
@@ -127,8 +128,18 @@ public class Snake : MonoBehaviour, ISnake
         audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/Hit"), 2);
         Camera.main.transform.DOShakePosition(0.35f, 0.5f, 10, 90, false);
         transform.DOShakeScale(0.1f, 0.1f, 10, 90, false);
+        EndGame(endGameType);
+    }
+    
+    protected void EndGame(GameController.EndGameType endGameType)
+    {
         nextDirection = Vector2.zero;
         gameController.EndGame(endGameType);
+
+        for (int i = 0; i < tail.GetTailCount(); i++)
+        {
+            tail.GetTail(i).transform.parent = transform;
+        }
     }
 
     public virtual void Grow()

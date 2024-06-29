@@ -14,7 +14,7 @@ public class P1Snake : Snake
         nameText.text = "P1";
 
         tail.GetTail(0).position = grid.GetPositionEmptyCell();
-        var _input = gameObject.AddComponent<PlayerInput>();
+        var _input = gameObject.GetOrAdd<PlayerInput>();
         input = _input; 
     }
    

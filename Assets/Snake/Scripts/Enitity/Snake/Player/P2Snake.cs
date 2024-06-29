@@ -13,7 +13,7 @@ public class P2Snake : Snake
         nameText.text = "P2";
         
         tail.GetTail(0).position = grid.GetPositionEmptyCell();
-        var _input = gameObject.AddComponent<EnemyInput>();
+        var _input = gameObject.GetOrAdd<EnemyInput>();
         input = _input; 
     }
      

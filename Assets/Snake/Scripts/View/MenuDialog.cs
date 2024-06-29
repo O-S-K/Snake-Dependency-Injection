@@ -29,5 +29,11 @@ public class MenuDialog : Dialog
     public override void Show()
     {
         base.Show();
+
+        if (GameInstaller.IsLoadedIngame)
+        {
+            DIContainer.Resolve<IGameController>().Init();
+            DIContainer.Resolve<UIManager>().Show<IngameDialog>();
+        }
     }
 }

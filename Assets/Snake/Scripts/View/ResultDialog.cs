@@ -6,11 +6,14 @@ public class ResultDialog : Dialog
 {
     [Inject] private UIManager _uiManager;
     [SerializeField] private  Button _playButton;
+    [SerializeField] private  Button _backMenuButton;
+
     [SerializeField] private Text _updateResultText;
 
     private void Awake()
     {
         _playButton.onClick.AddListener(OnPlayButtonClicked);
+        _backMenuButton.onClick.AddListener(OnPlayButtonClicked);
     }
     
     
@@ -34,9 +37,16 @@ public class ResultDialog : Dialog
                 break;
         }
     } 
+    
+    private void ObBackMenu()
+    {
+        GameInstaller.IsLoadedIngame = false;
+        SceneManager.LoadScene(0);
+    }
         
     private void OnPlayButtonClicked()
     {
+        GameInstaller.IsLoadedIngame = true;
         SceneManager.LoadScene(0);
     }
 

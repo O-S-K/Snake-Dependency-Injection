@@ -40,11 +40,11 @@ public class GameController : MonoBehaviour, IGameController
     public void Init()
     {
         currentState = GameState.Start;
-
         grid.Init();
         p1Snake.Init(dataSO.SnakeColors[Random.Range(0, 2)]);
         p2Snake.Init(dataSO.SnakeColors[Random.Range(2, 4)]);
     }
+   
 
     public void StartGame()
     {
@@ -59,14 +59,8 @@ public class GameController : MonoBehaviour, IGameController
 
     public void AddScore(int type)
     {
-        if (type == 0)
-        {
-            GameData.ScorePlayer++;
-        }
-        else
-        {
-            GameData.ScoreEnemy++;
-        }
+        if (type == 0) GameData.ScorePlayer++;
+        else GameData.ScoreEnemy++;
     }
 
 

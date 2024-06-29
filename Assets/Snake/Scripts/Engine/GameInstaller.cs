@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GameInstaller : MonoBehaviour
 {
+    public static bool IsLoadedIngame;
+    
     private void Awake()
     {
         // Load ScriptableObjects and instantiate necessary objects
